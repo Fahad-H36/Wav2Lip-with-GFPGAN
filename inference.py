@@ -176,6 +176,8 @@ def load_model(path):
 	model.load_state_dict(new_s)
 
 	model = model.to(device)
+	if torch.cuda.device_count() > 1:
+		model = torch.nn.DataParallel(model)
 	return model.eval()
 
 def main():
